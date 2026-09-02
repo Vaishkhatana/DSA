@@ -9,7 +9,7 @@ class Solution {
             int guess  = (low+high)/2;
             // if(arr[guess]>=x){
             //     return guess;
-            // use guess = low if you want this method.
+            // use guess = low if you want this method. for this not need to initilaize res = -1  jus add return -1 in last.
             // }
             if(arr[guess]<x){
                 low = guess+1;
