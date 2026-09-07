@@ -1,0 +1,49 @@
+class Solution {
+    
+    //helper function
+    public boolean findPlacedCow(int[] arr,int k,int guess){
+        
+        int noc = 1;
+        int prevCow = arr[0];
+        for(int i=1;i<arr.length;i++){
+            int dist = arr[i]-prevCow;
+            if(dist>=guess){
+                prevCow = arr[i];
+                noc++;
+            }
+            
+            
+        }
+        if(noc>=k){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
+    public int aggressiveCows(int[] arr, int k) {
+        
+        // code here
+        Arrays.sort(arr);
+        int n = arr.length;
+        int low = 1;
+        int high = arr[n-1]-arr[0];
+        int res = -1;
+        while(low<=high){
+            int guess = (low+high)/2;
+            boolean helper = findPlacedCow(arr,k,guess);
+            if(helper==true){
+                res = guess;
+                low = guess+1;
+            }
+            else{
+                high = guess-1;
+            }
+            
+        }
+        return res;
+        
+    }
+}
