@@ -1,17 +1,17 @@
 class Solution {
     public void reverseString(char[] s) {
-        reverse(s, 0, s.length - 1);
+        check(s,0,s.length-1);
     }
 
-    public void reverse(char[] s, int low, int high) {
-        if (low >= high) {
+    public void check(char[] s , int low , int high){
+        int len = high-low+1;
+        if(len==0||len==1){
             return;
         }
-
         char temp = s[low];
         s[low] = s[high];
         s[high] = temp;
 
-        reverse(s, low + 1, high - 1);
+        check(s,low+1,high-1);
     }
 }
