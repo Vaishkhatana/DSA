@@ -1,42 +1,41 @@
 class Solution {
+    HashMap<Character,String> map = new HashMap<>();
+    { map.put('2',"abc");
+    map.put('3',"def");
+    map.put('4',"ghi");
+    map.put('5',"jkl");
+    map.put('6',"mno");
+    map.put('7',"pqrs");
+    map.put('8',"tuv");
+    map.put('9',"wxyz");
+
+    }
+    
     public List<String> letterCombinations(String digits) {
+        
+        StringBuilder diary = new StringBuilder();
+        List<String> res = new ArrayList<>();
 
-        List<String> ans = new ArrayList<>();
+        check(digits,digits.length(),0,diary,res);
+        return res;
 
-        if (digits.length() == 0) {
-            return ans;
-        }
-
-        String[] map = {
-            "", "", "abc", "def", "ghi",
-            "jkl", "mno", "pqrs", "tuv", "wxyz"
-        };
-
-        solve(digits, 0, "", map, ans);
-
-        return ans;
+        
     }
 
-    public void solve(String digits, int index, String str,
-                      String[] map, List<String> ans) {
+    public void check(String digits,int n , int idx,  StringBuilder diary, List<String> res){
 
-        if (index == digits.length()) {
-            ans.add(str);
-            return;
+        if(idx == n){
+            res.add(diary.toString());
+            return ;
         }
 
-        int digit = digits.charAt(index) - '0';
+        String choices = map.get(digits.charAt(idx));
 
-        String letters = map[digit];
-
-        for (int i = 0; i < letters.length(); i++) {
-            solve(
-                digits,
-                index + 1,
-                str + letters.charAt(i),
-                map,
-                ans
-            );
+        for(int i=0 ;i<choices.length() ; i++){
+            diary.append(choices.charAt(i));
+            check(digits,n,idx+1,diary,res);
+            diary.deleteCharAt(diary.length()-1);
         }
+        
     }
 }
