@@ -1,0 +1,33 @@
+class Solution {
+    
+    public void dfs(ArrayList<ArrayList<Integer>> adj,int node, ArrayList<Integer> res, boolean [] visited){
+        res.add(node);
+        visited[node] = true;
+        
+        for(int i=0;i<adj.get(node).size();i++){
+            int neighbour = adj.get(node).get(i);
+            
+            if(visited[neighbour] == false){
+                dfs(adj,neighbour,res,visited);
+            }
+        }
+        return;
+        
+        
+        
+        
+        
+        
+    }
+    public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+        int n = adj.size();
+        ArrayList<Integer> res = new ArrayList<>();
+        boolean visited [] = new boolean[n];
+        dfs(adj,0,res,visited);
+        return res;
+        
+        
+        
+        
+    }
+}
