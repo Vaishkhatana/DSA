@@ -1,0 +1,39 @@
+class Solution {
+    boolean cycle = false;
+    
+    public void dfs(ArrayList<ArrayList<Integer>> adj,int i , boolean[] path, boolean[] visited){
+        visited[i] = true;
+        path[i] = true;
+        
+        for(int j=0;j<adj.get(i).size();j++){
+            int neighbour  = adj.get(i).get(j);
+            if(visited[neighbour] == true && path[neighbour] == true){
+                cycle = true;
+            }
+            if(visited[neighbour] == false){
+                dfs(adj,neighbour,path,visited);
+                
+                
+            }
+           
+           
+        }
+        path[i] = false;
+        return;
+    }
+    public boolean isCyclic(ArrayList<ArrayList<Integer>> adj){
+        int n = adj.size();
+        boolean[] visited  = new boolean[n];
+        boolean[] path = new boolean[n];
+        
+        for(int i=0;i<n;i++){
+            if(visited[i] == false){
+                dfs(adj,i,path,visited);
+            }
+        }
+        
+        return cycle;
+        
+        
+    }
+}
