@@ -1,0 +1,32 @@
+class Solution {
+    boolean cycle = false;
+    
+    public void dfs(ArrayList<ArrayList<Integer>> adj,int i , int parent,boolean[] visited){
+        visited[i] = true;
+        
+        for(int j=0;j<adj.get(i).size();j++){
+            int neighbour = adj.get(i).get(j);
+            if(visited[neighbour] == true && neighbour!= parent){
+                cycle = true;
+            }
+            
+            if(visited[neighbour] == false){
+                dfs(adj,neighbour,i,visited);
+            }
+        }
+         
+    }
+    public boolean isCycle(ArrayList<ArrayList<Integer>> adj) {
+        int n= adj.size();
+        boolean [] visited  = new boolean[n];
+        
+        for(int i=0;i<n;i++){
+            if(visited[i] == false){
+                dfs(adj,i,-1,visited);
+            }
+        }
+        return cycle;
+        
+        
+    }
+}
