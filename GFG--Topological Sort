@@ -1,0 +1,43 @@
+class Solution {
+  
+    ArrayList<Integer> topoSort(ArrayList<ArrayList<Integer>> adj) {
+        int n = adj.size();
+        int [] indegre = new int[n];
+        ArrayList<Integer> res = new ArrayList<>();
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<adj.get(i).size();j++){
+                int neighbour = adj.get(i).get(j);
+                indegre[neighbour]++;
+            }
+        }
+        
+        Queue<Integer> q = new LinkedList<>();
+        
+        for(int k=0;k<n;k++){
+            if(indegre[k] == 0){
+                q.add(k);
+            }
+            
+        }
+        
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.poll();
+            res.add(node);
+            for(int l=0;l<adj.get(node).size();l++){
+                int neighbour  = adj.get(node).get(l);
+                indegre[neighbour]--;
+                if(indegre[neighbour] == 0){
+                    q.add(neighbour);
+                }
+            }
+        }
+        return res;
+        
+        
+      
+        
+        
+    }
+}
