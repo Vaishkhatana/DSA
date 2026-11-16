@@ -1,0 +1,47 @@
+class Pair{
+    int first;
+    int second;
+    
+    Pair(int first,int second){
+        this.first = first;
+        this.second = second;
+    }
+}
+class Solution {
+    public int shortestPath(ArrayList<ArrayList<Integer>> adj, int src, int dest) {
+        int n = adj.size();
+        
+        boolean[] visited = new boolean[n];
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(src,0));
+        visited[src] = true;
+        
+        while(!q.isEmpty()){
+            Pair p = q.peek();
+            q.poll();
+            
+            int node = p.first;
+            int distance = p.second;
+            
+            if(node == dest){
+                return distance;
+            }
+            
+            for(int i=0;i<adj.get(node).size();i++){
+                int neighbour = adj.get(node).get(i);
+                
+                if(visited[neighbour]== false){
+                    q.add(new Pair(neighbour,distance+1));
+                    visited[neighbour] = true;
+                }
+            }
+            
+        }
+        return -1;
+        
+        
+        
+        
+        
+    }
+}
