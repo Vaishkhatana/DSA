@@ -1,0 +1,64 @@
+class Pair{
+    
+    int first;
+    int second;
+    
+    Pair(int first , int second){
+        this.first = first;
+        this.second = second;
+    }
+}
+class Solution {
+    public ArrayList<Integer> dijkstra(ArrayList<ArrayList<ArrayList<Integer>>> adj,int src) {
+        
+        int n = adj.size();
+        
+        PriorityQueue<Pair> pq = new PriorityQueue<>(
+            (a,b)->{
+                if(a.first!=b.first){
+                    return a.first-b.first;
+                }
+                return a.second-b.second;
+            }
+        );
+        
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            res.add(Integer.MAX_VALUE);
+            
+        }
+        
+        res.set(src,0);
+        
+        pq.add(new Pair(0,src));
+        
+        while(!pq.isEmpty()){
+            Pair p = pq.peek();
+            pq.poll();
+            
+            int dist = p.first;
+            int node = p.second;
+            
+            if(dist>res.get(node)){
+                continue;
+            }
+            
+            for(int i=0;i<adj.get(node).size();i++){
+                int neighbour = adj.get(node).get(i).get(0);
+                int wt = adj.get(node).get(i).get(1);
+                
+                if(dist+wt<res.get(neighbour)){
+                    res.set(neighbour,dist+wt);
+                    pq.add(new Pair(dist+wt,neighbour));
+                }
+            }
+        }
+        
+        return res;
+        
+        
+        
+        
+        
+    }
+}
