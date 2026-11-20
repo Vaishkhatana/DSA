@@ -1,0 +1,44 @@
+class Solution {
+    public ArrayList<Integer> bellmanFord(int V, int[][] edges, int src) {
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            res.add((int)1e8);
+        }
+        res.set(src,0);
+        
+        for(int i=0;i<V-1;i++){
+            for(int j=0;j<edges.length;j++){
+                int s = edges[j][0];
+                int d = edges[j][1];
+                int wt = edges[j][2];
+                
+                if(res.get(s)!=(int)1e8 && res.get(s)+wt<res.get(d) ){
+                    res.set(d,res.get(s)+wt);
+                }
+            }
+            
+            
+        }
+        for(int j=0;j<edges.length;j++){
+            int s = edges[j][0];
+            int d = edges[j][1];
+            int wt = edges[j][2];
+            
+            if(res.get(s)!=(int)1e8 && res.get(s)+wt<res.get(d)){
+                // 
+                ArrayList<Integer> ans = new ArrayList<>();
+                ans.add(-1);
+                return ans;
+                
+            }
+            
+        }
+        return res;
+        
+        
+       
+        
+        
+        
+    }
+}
