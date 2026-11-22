@@ -1,0 +1,58 @@
+class Pair{
+    int first;
+    int second;
+    
+    Pair(int first,int second){
+        this.first = first;
+        this.second = second;
+    }
+}
+
+
+class Solution {
+    public int primMST(ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+        // code here
+        int n = adj.size();
+        int[] visited = new int[n];
+        int sum =0;
+        
+        PriorityQueue<Pair> pq = new PriorityQueue<>(
+            (a,b)->{
+                if(a.first!=b.first){
+                    return a.first-b.first;
+                }
+                return a.second-b.second;
+            });
+            
+        pq.add(new Pair(0,0));
+        
+        while(!pq.isEmpty()){
+            Pair p = pq.peek();
+            pq.poll();
+            
+            int wt = p.first;
+            int node = p.second;
+            
+            if(visited[node] == 1){
+                continue;
+            }
+            
+            visited[node] = 1;
+            sum = sum+wt;
+            
+            for(int i=0;i<adj.get(node).size();i++){
+                int neighbour = adj.get(node).get(i).get(0);
+                int weight = adj.get(node).get(i).get(1);
+                if(visited[neighbour] == 0){
+                    pq.add(new Pair(weight,neighbour));
+                }
+            }
+            
+        }
+        return sum;
+            
+            
+        
+        
+    }
+}
